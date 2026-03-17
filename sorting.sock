@@ -1,0 +1,8 @@
+[Unit]
+Description=sorting socket
+
+[Socket]
+ListenStream=/run/sorting.sock
+
+[Install]
+WantedBy=sockets.target
