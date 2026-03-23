@@ -57,24 +57,26 @@ def test(request: HttpRequest, pk: int):
         test_obj.end_date = test_obj.start_date + timedelta(minutes=test_obj.duration)
         test_obj.save()
 
-    # ped_spec = Specialist.objects.filter(name="Pedagogika texnologiyalari", is_additional=True).first()
-    it_spec = Specialist.objects.filter(name="IT", is_additional=True).first()
+    ped_spec = Specialist.objects.filter(
+        name="Pedagogika texnologiyalari", is_additional=True
+    ).first()
+    # it_spec = Specialist.objects.filter(name="IT", is_additional=True).first()
 
     spec_questions_obj = Question.objects.filter(specialist=test_obj.spec).order_by(
         "?"
     )[:20]
-    # ped_questions_obj = Question.objects.filter(specialist=ped_spec).order_by("?")[:10]
-    it_questions_obj = Question.objects.filter(specialist=it_spec).order_by("?")[:15]
+    ped_questions_obj = Question.objects.filter(specialist=ped_spec).order_by("?")[:10]
+    # it_questions_obj = Question.objects.filter(specialist=it_spec).order_by("?")[:15]
     lang_questions_obj = Question.objects.filter(specialist=lang_obj).order_by("?")[:15]
 
     if not result.questions.all():
         print("questions added")
         for i in spec_questions_obj:
             result.questions.add(i)
-        # for i in ped_questions_obj:
-        #     result.questions.add(i)
-        for i in it_questions_obj:
+        for i in ped_questions_obj:
             result.questions.add(i)
+        # for i in it_questions_obj:
+        #     result.questions.add(i)
         for i in lang_questions_obj:
             result.questions.add(i)
         result.save()
@@ -86,8 +88,8 @@ def test(request: HttpRequest, pk: int):
             "test": test_obj,
             "spec": test_obj.spec,
             "spec_questions": spec_questions_obj,
-            # "ped_questions": ped_questions_obj,
-            "it_questions": it_questions_obj,
+            "ped_questions": ped_questions_obj,
+            # "it_questions": it_questions_obj,
             "lang_questions": lang_questions_obj,
         },
     )

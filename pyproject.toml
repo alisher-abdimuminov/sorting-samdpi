@@ -9,4 +9,5 @@ dependencies = [
     "django-ckeditor>=6.7.3",
     "fpdf2>=2.8.7",
     "gunicorn>=25.1.0",
+    "requests>=2.32.5",
 ]
